@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import Post from "../entity/Post";
+import Sub from "../entity/Sub";
 import auth from "../middleware/auth";
 
 const createPost = async (req: Request, res:Response) => {
@@ -10,9 +11,12 @@ const createPost = async (req: Request, res:Response) => {
     if(title.trim() === "" ) return res.status(400).json({message:"Title must not be empty"})
 
     try {
-        // find a sub
+        // @ts-ignore
+        const subRecord = await Sub.findOneBy({name: sub})
 
-        const post = new Post({title, body, user, subName:sub})
+        if(!subRecord) return res.status(400).send("No sub found")
+
+        const post = new Post({title, body, user, sub:subRecord})
         await post.save()
 
         return res.json(post)
