@@ -10,7 +10,7 @@ export const AppDataSource = new DataSource({
     password: "ff5395!!",
     database: "redditclone",
     synchronize: true,
-    logging: true,
+    logging: false,
     entities: [User],
     migrations: [],  
     subscribers: [], 
