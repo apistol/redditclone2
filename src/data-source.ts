@@ -1,6 +1,7 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { User } from "./entity/User"
+import Post from "./entity/Post"
+import User from "./entity/User"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -10,8 +11,8 @@ export const AppDataSource = new DataSource({
     password: "ff5395!!",
     database: "redditclone",
     synchronize: true,
-    logging: false,
-    entities: [User],
+    logging: true,
+    entities: [User, Post],
     migrations: [],  
     subscribers: [], 
 })

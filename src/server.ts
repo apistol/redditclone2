@@ -1,11 +1,13 @@
-import { AppDataSource } from "./data-source"
-import { User } from "./entity/User"
 import express from "express"
 import morgan from "morgan"
-import authRoutes from "./routes/auth"
-import trim from "./middleware/trim"
 import dotenv from 'dotenv'
 import cookieParser from "cookie-parser";
+
+import { AppDataSource } from "./data-source"
+import trim from "./middleware/trim"
+
+import authRoutes from "./routes/auth"
+import postRoutes from "./routes/post"
 
 dotenv.config()
 
@@ -18,17 +20,14 @@ app.use(cookieParser())
 
 app.get("/" , (_, res) => res.send("Salut"))
 app.use("/api/auth", authRoutes)
+app.use("/api/post", postRoutes)
 
-app.listen(5000,async () => {
-    console.log("Server running at port 5000")
-    AppDataSource.initialize()
+app.listen(process.env.PORT ,async () => {
+    console.log(`Server running at port ${process.env.PORT}`)
+    await AppDataSource.initialize()
+    // await AppDataSource.dropDatabase()
+    // await AppDataSource.runMigrations()
+    console.log("Database connected")
+
 })
 
-// AppDataSource.initialize().then(async () => {
-//     const user = new User()
-//     user.firstName = "Timber"
-//     user.lastName = "Saw"
-//     user.age = 25
-//     await AppDataSource.manager.save(user)
-//     const users = await AppDataSource.manager.find(User)
-// }).catch(error => console.log(error))
