@@ -9,7 +9,7 @@ export function makeId(length: number): string {
     return result;
 }
 
-export function slugify(str) {
+export function slugify(str:string) {
     str = str.trim();
     str = str.toLowerCase();
 

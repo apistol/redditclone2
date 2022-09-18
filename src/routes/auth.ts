@@ -65,7 +65,7 @@ const login = async (req: Request, res: Response) => {
 
         const passwordMatches = await bcrypt.compare(password, user.password)
         if (!passwordMatches) return res.status(401).json({ error: 'Password is incorect' })
-        const token = jwt.sign({ username }, process.env.JWT_SECRET)
+        const token = jwt.sign({ username }, process.env.JWT_SECRET!)
         res.set(
             'Set-Cookie',
             cookie.serialize('token', token, {
@@ -79,7 +79,8 @@ const login = async (req: Request, res: Response) => {
         return res.json(user)
 
     } catch (error) {
-
+        console.log(error)
+        return res.status(400).json(error)
     }
 
 }
