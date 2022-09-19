@@ -1,5 +1,7 @@
 {
    "compilerOptions": {
+      "jsx": "react",
+      "jsx": "react",
        // https://www.typescriptlang.org/tsconfig
        "lib": ["es5", "es6"],
        "target": "es6",
