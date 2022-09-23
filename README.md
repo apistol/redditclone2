@@ -23,3 +23,10 @@ Steps to run this project:
 ## 3. delete operations
 6. DROP SEQUENCE user_id_seq CASCADE;
 7. DROP TABLE "user";
+
+
+# TBD
+
+1. Add validation with formik in Register Page (show errors from BE if user or email already taken, show validation errors from FE with formik and Yup) => https://www.youtube.com/watch?v=vJtyp1YmOpc
+
+2.  

@@ -11,30 +11,24 @@ const register = async (req: Request, res: Response) => {
 
     try {
         // validate data
-        let errors: any = {};
 
         // @ts-ignore
         const emailUser = await User.findOneBy({ email })
+        if (emailUser) return res.status(400).json({message:"Email is already taken"})
+
         // @ts-ignore
         const userName = await User.findOneBy({ username })
+        if (userName) return res.status(400).json({message:"Username is already taken"})
 
-        if (emailUser) errors.email = "Email is already taken"
-        if (userName) errors.username = "Username is already taken"
-
-        if (Object.keys(errors).length > 0) {
-            return res.status(400).json({ errors })
-        }
 
         // create user
         const user = new User({ email, username, password })
-
-        errors = await validate(user)
-
-        if (errors.length > 0) return res.status(400).json({ errors })
+        let errors = await validate(user)
+        if (errors.length > 0) {
+            return res.status(400).json({message:"Validation errors"})
+        }
 
         await user.save()
-
-        // return the user
         return res.json(user)
 
     } catch (error) {
